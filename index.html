@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SetyoTrend</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Theme Colors */
+        :root {
+            --background-color: #E8E8E8;
+            --nav-bgc: #00102A;
+            --txt-color: black;
+            --secondary-color: #C0C0C0;
+            --light-text: #F0F0F0;
+            --highlight-color: #4682B4;
+            --darker-accent: #708090;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--txt-color);
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--highlight-color);
+            text-decoration: none;
+        }
+
+        header {
+            background-color: var(--nav-bgc);
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .logo img {
+            width: auto;
+            height: 50px;
+            margin-left: 15px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin-right: 10px;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--light-text);
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--highlight-color);
+        }
+
+        .icon {
+            display: none;
+            color: var(--light-text);
+            font-size: 30px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        /* Responsive Navigation */
+        @media screen and (max-width: 600px) {
+            nav ul {
+                display: none;
+                /* Hide all links initially */
+            }
+
+            .icon {
+                display: block;
+                /* Show the hamburger menu icon */
+            }
+
+            .responsive ul {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--nav-bgc);
+                z-index: 99;
+            }
+
+            .responsive ul li {
+                text-align: center;
+                margin: 0;
+                border-bottom: 1px solid var(--highlight-color);
+            }
+
+            .responsive ul li a {
+                padding: 15px;
+                display: block;
+            }
+        }
+
+        footer {
+            background-color: var(--nav-bgc);
+            color: var(--light-text);
+            padding: 20px 0;
+            font-family: sans-serif;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            text-align: center;
+            flex: 1 1 200px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column li {
+            margin-bottom: 5px;
+        }
+
+        .footer-column a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--highlight-color);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            font-size: small;
+        }
+
+        .container {
+
+            width: 90vw;
+            margin: 90px auto 10px auto;
+        }
+
+        .hero {
+            height: 50vh;
+            width: 100%;
+            background-color: #000000;
+        }
+
+        .hero-image {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/homehero.jpeg");
+            height: 50vh;
+            /* Set height to 50vh */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        .hero-text {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+
+        h1 {
+            font-size: 50px;
+            /* Default font size */
+        }
+
+        p {
+            font-size: 20px;
+            /* Default font size for the paragraph */
+        }
+
+        .space-box {
+            height: 50px;
+
+        }
+
+        .problem {
+            display: flex;
+            flex-wrap: wrap;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .problem-text {
+            flex: 1;
+            box-sizing: border-box;
+            padding: 20px;
+            height: 500px;
+            text-align: left;
+            /* Align text to the left */
+            display: flex;
+            /* Use flexbox for vertical centering */
+            flex-direction: column;
+            /* Set flex direction to column */
+            justify-content: center
+        }
+
+        .problem-text h2 {
+            font-size: 2rem;
+            /* Larger heading size */
+            margin-bottom: 1rem;
+            /* Space below the heading */
+        }
+
+        .problem-text p {
+            font-size: 1.1rem;
+            /* Slightly larger paragraph text */
+            line-height: 1.6;
+            /* Better readability with increased line height */
+            margin-bottom: 1.5rem;
+            /* Space between paragraphs */
+        }
+
+
+        .problem-img {
+            flex: 1;
+
+            height: 500px;
+            /* background: url("placeholder.jpg") center/cover no-repeat; */
+            min-height: 300px;
+
+        }
+
+        .problem-img img {
+            height: 500px;
+
+
+        }
+
+        .solution {
+            padding: 20px;
+            background-color: var(--background-color);
+        }
+
+        .solution h2 {
+            text-align: center;
+
+        }
+
+        .solution-text {
+            display: flex;
+            flex-wrap: wrap;
+            /* Allow wrapping for smaller screens */
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .solution-text div {
+            flex: 2;
+            min-width: 300px;
+            /* Minimum width for smaller screens */
+            padding: 10px;
+            box-sizing: border-box;
+            /* Include padding in width calculation */
+        }
+
+        .cta-button {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background-color: var(--darker-accent);
+        }
+
+        .solution-img {
+            margin-top: 10px;
+
+            /* Space between text and images */
+        }
+
+        .solution-img img {
+            width: 100%;
+            /* Full width for images */
+            border-radius: 5px;
+        }
+
+        .mini-space-box {
+            height: 20px;
+        }
+
+        .why-choose {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .why-choose-text {
+
+
+            display: flex;
+            flex-direction: row;
+
+            justify-content: space-between;
+            flex-wrap: wrap;
+
+        }
+
+        .why-choose-block {
+
+
+
+            margin-bottom: 20px;
+            padding: 20px;
+            flex: 1;
+
+            text-align: center;
+        }
+
+        .why-choose-block img {
+            width: 60px;
+            background-color: #000000;
+            height: auto;
+        }
+
+        .img-txt {
+            text-align: center;
+            /* Center text for h2 and p */
+        }
+
+        .img-txt-block {
+            display: flex;
+            /* Use Flexbox for layout */
+            justify-content: center;
+            /* Center the items horizontally */
+            align-items: flex-start;
+            /* Align items at the start vertically */
+            margin-top: 20px;
+            /* Space between the heading and content */
+        }
+
+        .img-txt-text {
+            margin-right: 20px;
+            /* Space between text and image */
+        }
+
+        .img-txt-img img {
+            max-width: 100%;
+            /* Ensure the image is responsive */
+            height: auto;
+            /* Maintain aspect ratio */
+        }
+
+        .img-txt-text ul {
+            text-align: left;
+            /* Use bullet points */
+            padding-left: 20px;
+            /* Indent the list items from the left */
+        }
+
+        .content {
+            padding: 40px 20px;
+
+            margin: 0 auto;
+        }
+
+        .content h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .solutions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .solution {
+
+            padding: 20px;
+
+
+        }
+
+        .solution h4 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .solution p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .content ul {
+            margin: 20px 0;
+            padding-left: 20px;
+            list-style: disc;
+        }
+
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 768px) {
+            .container {
+                width: 100vw;
+                margin: 80px 0 5px 0;
+            }
+
+            .space-box {
+                height: 25px;
+
+            }
+
+            .mini-space-box {
+                height: 10px;
+            }
+
+            .hero {
+                height: 35vh;
+            }
+
+            .hero-image {
+                height: 40vh;
+                /* Adjust height for smaller screens */
+            }
+
+            h1 {
+                font-size: 30vh;
+                /* Smaller font for the heading */
+            }
+
+            p {
+                font-size: 16px;
+                /* Smaller font for the paragraph */
+            }
+
+            .problem {
+                flex-direction: column;
+                /* Reverse order on medium screens */
+            }
+
+            .problem-img {
+                height: 200px;
+                /* Adjust image height as needed */
+            }
+
+            .content h3 {
+                font-size: 1.8rem;
+            }
+
+            .solution h4 {
+                font-size: 1.3rem;
+            }
+
+            .solution p {
+                font-size: 0.9rem;
+            }
+
+            .container {
+                flex-direction: column;
+                /* Stack blocks in a column */
+                align-items: center;
+                /* Center align the blocks */
+            }
+
+            .why-choose-block {
+                flex-basis: 100%;
+                /* Each block takes full width */
+                max-width: 100%;
+                /* Ensure full width on smaller screens */
+                margin-bottom: 20px;
+                /* Space between blocks */
+            }
+
+            .problem-img img {
+                height: 30vh;
+                width: 100vw;
+            }
+
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 100vw;
+                margin: 80px 0 5px 0;
+            }
+
+            .content h3 {
+                font-size: 1.8rem;
+            }
+
+            .solution h4 {
+                font-size: 1.3rem;
+            }
+
+            .solution p {
+                font-size: 0.9rem;
+            }
+
+            .hero-image {
+                height: 35vh;
+                /* Further reduce height for very small screens */
+            }
+
+            h1 {
+                font-size: 30px;
+                /* Smaller font for heading on very small screens */
+            }
+
+            p {
+                font-size: 14px;
+                /* Smaller font for paragraph on very small screens */
+            }
+
+            .problem-img {
+                height: 150px;
+                /* Adjust image height for smaller screens */
+            }
+
+            .content h3 {
+                font-size: 1.5rem;
+            }
+
+            .solution h4 {
+                font-size: 1.1rem;
+            }
+
+            .solution p {
+                font-size: 0.8rem;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html"><img src="images/logo.png" alt="SetyoTrend Logo"></a>
+        </div>
+        <nav id="myTopnav">
+            <ul>
+                <li><a href="pages/aboutpage.html">About us</a></li>
+                <li><a href="pages/featurespage.html">Features</a></li>
+                <!-- <li><a href="#contact">Contact</a></li> -->
+                <li><a href="pages/careerspage.html">Careers</a></li>
+            </ul>
+            <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </nav>
+    </header>
+    <main class="container">
+        <div class="hero">
+            <div class="hero-image">
+                <div class="hero-text">
+                    <h1 style="font-size:50px">SetyoTrend</h1>
+                    <p>Fashion Made Effortless</p>
+                </div>
+            </div>
+        </div>
+        <div class="space-box"></div>
+        <div class="problem">
+            <div class="problem-text">
+                <h2>Do these sound familiar?</h2>
+                <p>
+                    You stand in front of your wardrobe, staring at a sea of clothes, yet feel like you have nothing to
+                    wear.
+
+                </p>
+                <p>You order the perfect outfit online, only to find it doesn’t quite fit or feel right when it
+                    arrives. You wish you
+                    could’ve tried it on first.</p>
+            </div>
+            <div class="problem-img">
+                <img src="images/problemimage.jpg" alt="nothing">
+            </div>
+        </div>
+        <div class="space-box"></div>
+        <section class="content">
+            <h3>The Solutions We Bring:</h3>
+            <div class="solutions">
+                <div class="solution">
+                    <h4>Meet Setyotrend: Your AI-Powered Personal Stylist</h4>
+                    <p>Say goodbye to wardrobe dilemmas! Setyotrend curates looks tailored to your style and mood.
+                        Visualize
+                        your outfits on a 3D avatar that mirrors your body.</p>
+                </div>
+                <div class="solution">
+                    <h4>Try Before You Buy—Virtually</h4>
+                    <p>Experience the joy of virtual fitting! Our 3D avatar feature lets you see how outfits fit before
+                        you
+                        buy, eliminating the hassle of returns.</p>
+                </div>
+            </div>
+            <div class="space-box"></div>
+            <h3>What We Offer:</h3>
+            <div class="mini-space-box"></div>
+            <ul>
+                <li>Personalized Outfit Suggestions: Start your day stress-free with AI-curated looks tailored to your
+                    style
+                    and mood.</li>
+                <li>3D Avatar Visualization: See how outfits look on a realistic 3D model of yourself before you wear
+                    them
+                    or make a purchase.</li>
+                <li>Sustainable Fashion Solutions: Maximize the use of your existing wardrobe, reduce waste, and embrace
+                    a
+                    more eco-friendly approach to fashion.</li>
+            </ul>
+            <div class="space-box"></div>
+            <h3>Fashion That Fits Your Life</h3>
+            <div class="mini-space-box"></div>
+            <p>Whether you’re a busy student, a professional, or someone who loves experimenting with style, Setyotrend
+                adapts to your needs. With just a few clicks, you’ll have access to:</p>
+            <ul>
+                <li>Creative ways to style what you already own.</li>
+                <li>Inspiration from global fashion trends.</li>
+                <li>Tools to make mindful, sustainable fashion choices.</li>
+            </ul>
+            <div class="space-box"></div>
+            <h3>The Problem We Solve</h3>
+            <div class="mini-space-box"></div>
+            <ul>
+                <li>Decision Fatigue: “What should I wear today?” becomes a thing of the past.</li>
+                <li>Ill-Fitting Clothes: Know exactly how an outfit fits and feels with our 3D avatar technology.</li>
+                <li>Sustainability Challenges: Discover new outfits from your wardrobe, reducing reliance on fast
+                    fashion.
+                </li>
+            </ul>
+            <div class="space-box"></div>
+            <h3>Experience the Magic</h3>
+            <div class="mini-space-box"></div>
+            <p>Upload photos of your wardrobe, and watch as Setyotrend transforms them into exciting, stylish
+                combinations.
+            </p>
+            <p>Get instant outfit ideas, perfectly suited to your day and occasion.</p>
+            <p>Explore a curated style feed for endless inspiration.</p>
+            <div class="space-box"></div>
+            <h3>Empowering Confidence, One Outfit at a Time</h3>
+            <div class="mini-space-box"></div>
+            <p>Setyotrend is not about following trends—it’s about setting your own. Look and feel your best every day,
+                without the stress of overthinking your style choices.</p>
+
+        </section>
+        <div class="space-box"></div>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Site Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pages/aboutpage.html">About Us</a></li>
+                    <li><a href="pages/featurespage.html">Features</a></li>
+                    <!-- <li><a href="#">Contact</a></li> -->
+                    <li><a href="pages/careerspage.html">Careers</a></li>
+                </ul>
+            </div>
+            <!-- <div class="footer-column">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ul> -->
+        </div>
+        </div>
+        <!-- <div class="copyright">
+            <p>&copy; 2023 Your Company. All rights reserved.</p>
+        </div> -->
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            var nav = document.getElementById("myTopnav");
+            if (nav.className === "") {
+                nav.className = "responsive";
+            } else {
+                nav.className = "";
+            }
+        }
+    </script>
+</body>
+
+</html>
