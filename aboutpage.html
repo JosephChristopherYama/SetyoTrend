@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SetyoTrend</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Theme Colors */
+        :root {
+            --background-color: #E8E8E8;
+            --nav-bgc: #00102A;
+            --txt-color: black;
+            --secondary-color: #C0C0C0;
+            --light-text: #F0F0F0;
+            --highlight-color: #4682B4;
+            --darker-accent: #708090;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--txt-color);
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--highlight-color);
+            text-decoration: none;
+        }
+
+        header {
+            background-color: var(--nav-bgc);
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .logo img {
+            width: auto;
+            height: 50px;
+            margin-left: 15px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin-right: 10px;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: var(--light-text);
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--highlight-color);
+        }
+
+        .icon {
+            display: none;
+            color: var(--light-text);
+            font-size: 30px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        /* Responsive Navigation */
+        @media screen and (max-width: 600px) {
+            nav ul {
+                display: none;
+                /* Hide all links initially */
+            }
+
+            .icon {
+                display: block;
+                /* Show the hamburger menu icon */
+            }
+
+            .responsive ul {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--nav-bgc);
+                z-index: 99;
+            }
+
+            .responsive ul li {
+                text-align: center;
+                margin: 0;
+                border-bottom: 1px solid var(--highlight-color);
+            }
+
+            .responsive ul li a {
+                padding: 15px;
+                display: block;
+            }
+        }
+
+        footer {
+            background-color: var(--nav-bgc);
+            color: var(--light-text);
+            padding: 20px 0;
+            font-family: sans-serif;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-column {
+            text-align: center;
+            flex: 1 1 200px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column li {
+            margin-bottom: 5px;
+        }
+
+        .footer-column a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--highlight-color);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            font-size: small;
+        }
+
+        .container {
+            width: 90vw;
+            margin: 90px auto 10px auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 100vw;
+                margin: 80px 0 5px 0;
+            }
+
+            .column {
+                width: 100%;
+                display: block;
+            }
+
+            .column {
+                float: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 100vw;
+                margin: 80px 0 5px 0;
+            }
+        }
+
+        /* Careers Page Styles */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("about-image.jpg") center center / cover no-repeat;
+            color: white;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5em;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+        }
+
+        .section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .mission-vision p {
+            max-width: 800px;
+            margin: 10px auto;
+        }
+
+        .section {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .mission-vision p {
+            max-width: 800px;
+            margin: 10px auto;
+        }
+
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .team-member {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .team-member h3 {
+            margin: 10px 0 5px;
+        }
+
+        .team-member p {
+            font-size: 0.9rem;
+            color: gray;
+        }
+
+
+        /* .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0 8px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: 8px;
+
+        }
+
+        
+        .card-img {
+            height: 500px;
+
+        }
+
+
+        .card-container {
+            padding: 0 16px;
+        }
+
+        .card-container::after,
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .title {
+            color: grey;
+        } */
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html"><img src="logo.png" alt="SetyoTrend Logo"></a>
+        </div>
+        <nav id="myTopnav">
+            <ul>
+                <li><a href="aboutpage.html">About us</a></li>
+                <li><a href="featurespage.html">Features</a></li>
+                <!-- <li><a href="#contact">Contact</a></li> -->
+                <li><a href="careerspage.html">Careers</a></li>
+            </ul>
+            <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </nav>
+    </header>
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>About SetyoTrend</h1>
+            <p>We're here to make fashion personal, effortless, and smarter with the power of AI.</p>
+        </section>
+
+        <!-- Mission and Vision -->
+        <section class="section mission-vision">
+            <h2>Our Mission & Vision</h2>
+            <p><strong>Mission:</strong> Our mission is to make fashion personal, accessible, and empowering. We combine
+                cutting-edge AI with your unique style to help you discover outfits you love, visualize your wardrobe,
+                and feel confident in every choice. It's not just about clothes &ndash; it’s about expressing who you
+                are, effortlessly.</p>
+            <p><strong>Vision:</strong> To revolutionize the way people experience fashion by blending technology and
+                creativity, making personalized style accessible to everyone while fostering sustainability and
+                self-expression worldwide.</p>
+        </section>
+
+        <!-- Leadership Team -->
+        <section class="section leadership">
+            <h2>Meet Our Team</h2>
+            <div class="team">
+                <div class="team-member">
+                    <img src="joseph.jpg" alt="Team Member 1">
+                    <h3>Joseph Christopher Yama</h3>
+                    <p>CEO & Founder</p>
+                </div>
+                <div class="team-member">
+                    <img src="preetham.jpg" alt="Team Member 2">
+                    <h3>Preetham Kumar</h3>
+                    <p>Chief Technology Officer & Co-Founder</p>
+                </div>
+                <div class="team-member">
+                    <img src="arya.jpg" alt="Team Member 3">
+                    <h3>Arya Kummari</h3>
+                    <p>Creative Director & Co-Founder</p>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="column">
+                    <div class="card">
+                        <div class="card-img" style="background: url('joseph.jpg') center center / cover no-repeat;"></div>
+                        <div class="card-container">
+                            <h3>Joseph Christopher Yama</h3>
+                            <p class="title">CEO & Founder</p>
+                            <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                            <p>jane@example.com</p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card">
+                        <div class="card-img" style="background: url('preetham.jpg') center center / cover no-repeat;"></div>
+                        <div class="card-container">
+                            <h3>Preetham Kumar</h3>
+                            <p class="title">Chief Technology Officer & Co-Founder</p>
+                            <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                            <p>mike@example.com</p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card">
+                        <div class="card-img" style="background: url('arya.jpg') center center / cover no-repeat;"></div>
+                        <div class="card-container">
+                            <h3>Arya Kummari</h3>
+                            <p class="title">Creative Director & Co-Founder</p>
+                            <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                            <p>john@example.com</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </section>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Site Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="aboutpage.html">About Us</a></li>
+                    <li><a href="featurespage.html">Features</a></li>
+                    <!-- <li><a href="#">Contact</a></li> -->
+                    <li><a href="careerspage.html">Careers</a></li>
+                </ul>
+            </div>
+            <!-- <div class="footer-column">
+                <h3>Follow Us</h3>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ul>
+            </div> -->
+        </div>
+        <!-- <div class="copyright">
+            <p>&copy; 2023 Your Company. All rights reserved.</p>
+        </div> -->
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            var nav = document.getElementById("myTopnav");
+            if (nav.className === "") {
+                nav.className = "responsive";
+            } else {
+                nav.className = "";
+            }
+        }
+    </script>
+</body>
+
+</html>
